@@ -125,6 +125,10 @@ class CRM_Rabbitizen_Consumer {
    * @return bool
    */
   protected function retry($extraInfo) {
+    if ($extraInfo['retry_later']) {
+      return TRUE;
+    }
+
     $debugInformation = [
       'debug_information' => 'try restarting transaction',
       'error_message' => 'DB Error: no database selected',
@@ -134,6 +138,7 @@ class CRM_Rabbitizen_Consumer {
         return TRUE;
       }
     }
+
     return FALSE;
   }
 
