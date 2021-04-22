@@ -42,4 +42,7 @@ function civicrm_api3_rabbitizen_Consume($params) {
   //Start consuming the queue
   $consumer = new CRM_Rabbitizen_Consumer($params['processor'], $params['queue'], $error_queue, $retry_exchange);
   $consumer->start();
+
+  //If we reach this point, there was probably an error during consumption
+  return civicrm_api3_create_error("Rabbitizen consumer interrupted");
 }
