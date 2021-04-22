@@ -27,6 +27,7 @@ class CRM_Rabbitizen_Consumer {
     $this->queue = $queue;
     $this->error_queue = $error_queue;
     $this->retry_exchange = $retry_exchange;
+    $this->prefetch = 100;
   }
 
   /**
@@ -58,7 +59,7 @@ class CRM_Rabbitizen_Consumer {
     try {
       $connection = $this->connect();
       $channel = $connection->channel();
-      $channel->basic_qos(NULL, $this->loadCheckPeriod, NULL);
+      $channel->basic_qos(NULL, $this->prefetch, NULL);
       $cb_name = $channel->basic_consume($this->queue, '', FALSE, FALSE, FALSE, FALSE, array($this, $callbackFunction));
       while (TRUE) {
         $channel->wait();
