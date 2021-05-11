@@ -129,7 +129,7 @@ class CRM_Rabbitizen_Consumer {
    * @return bool
    */
   protected function retry($extraInfo) {
-    if ($extraInfo['retry_later']) {
+    if (CRM_Utils_Array::value('retry_later', $extraInfo)) {
       return TRUE;
     }
 
