@@ -28,6 +28,9 @@ class CRM_Rabbitizen_Consumer {
     $this->error_queue = $error_queue;
     $this->retry_exchange = $retry_exchange;
     $this->prefetch = 100;
+    // A WeMove custom patch reads this constant to indicate that the mailer object should be created / destroyed for each email
+    // Without it, the connection to SMTP server is kept and will usually reach an idle timeout and cause an error
+    define('CIVICRM_MAILER_TRANSIENT', 1);
   }
 
   /**
