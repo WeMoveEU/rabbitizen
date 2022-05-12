@@ -33,6 +33,7 @@ class CRM_Rabbitizen_Publisher {
   public function publish($msg) {
       $connection = $this->connect();
       $channel = $connection->channel();
+      $msg = new AMQPMessage($msg);
       if ($this->queue) {
         return $channel->basic_publish($msg, $this->exchange, $this->queue);
       }
